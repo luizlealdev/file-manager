@@ -1,31 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="16dp"
     tools:context=".GrantPermissionActivity">
-    
-    <Button
-        android:id="@+id/button_get_permission"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/positive_permission_button"
-        android:fontFamily="@font/inter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/button_deny_permission"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:text="@string/negative_permission_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_get_permission" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/image_folder_unlock"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:src="@drawable/unlock_folder"
+            app:layout_constraintBottom_toTopOf="@id/text_permission_screen_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/text_permission_screen_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:text="Allow access to external storage"
+            android:textColor="@color/textPrimary"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/text_permission_screen_subtitle"
+            app:layout_constraintTop_toBottomOf="@id/image_folder_unlock" />
+
+        <TextView
+            android:id="@+id/text_permission_screen_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:text="We need to access all of your device files"
+            android:textColor="@color/textSecondary"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/button_get_permission"
+            app:layout_constraintTop_toBottomOf="@id/text_permission_screen_title" />
+
+        <Button
+            android:id="@+id/button_get_permission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:backgroundTint="@color/primary"
+            android:fontFamily="@font/inter"
+            android:paddingVertical="14dp"
+            android:text="@string/positive_permission_button"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/button_deny_permission"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/button_deny_permission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/inter"
+            android:padding="14dp"
+            android:text="@string/negative_permission_button"
+            android:textColor="@color/primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

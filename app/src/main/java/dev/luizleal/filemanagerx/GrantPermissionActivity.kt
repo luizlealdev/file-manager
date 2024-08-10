@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -42,7 +41,7 @@ class GrantPermissionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        // enableEdgeToEdge()
 
         _binding = ActivityGrantPermissionBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -101,8 +100,9 @@ class GrantPermissionActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED) {
-                openMainActivity()
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            openMainActivity()
 
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { //for android 11 or above
             if (Environment.isExternalStorageManager()) {
