@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">File Manager X</string>
+    <string name="app_version">v1.0.0</string>
+    <string name="positive_permission_button">Allow</string>
+    <string name="negative_permission_button">Not now</string>
+</resources>
