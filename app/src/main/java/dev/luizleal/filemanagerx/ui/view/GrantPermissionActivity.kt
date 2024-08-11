@@ -1,4 +1,4 @@
-package dev.luizleal.filemanagerx
+package dev.luizleal.filemanagerx.ui.view
 
 import android.Manifest
 import android.content.Intent

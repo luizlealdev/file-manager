@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/frg_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/frg_files"
+        android:icon="@drawable/ic_folder"
+        android:title="@string/files" />
+    <item
+        android:id="@+id/frg_cloud"
+        android:icon="@drawable/ic_cloud"
+        android:title="@string/cloud" />
+    <item
+        android:id="@+id/frg_remote"
+        android:icon="@drawable/ic_globe"
+        android:title="@string/remote" />
+    <item
+        android:id="@+id/frg_setting"
+        android:icon="@drawable/ic_setting"
+        android:title="@string/settings" />
+</menu>

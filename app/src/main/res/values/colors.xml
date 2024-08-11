@@ -4,6 +4,13 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary">#2f64ff</color>
-    <color name="textPrimary">#242424</color>
+    <color name="darkPrimary">#2550CD</color>
+    <color name="lightPrimary">#4B77F8</color>
+
+    <color name="bgColor">#f4f2f7</color>
+    <color name="foreground">#ffffff</color>
+    <color name="onForeground">#f9f9f9</color>
+
+    <color name="textPrimary">#2C2C2C</color>
     <color name="textSecondary">#666666</color>
 </resources>
