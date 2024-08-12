@@ -117,5 +117,6 @@ class GrantPermissionActivity : AppCompatActivity() {
         val mainActivityIntent = Intent(this, MainActivity::class.java)
         //start this activity
         startActivity(mainActivityIntent)
+        finish()
     }
 }
