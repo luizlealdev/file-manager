@@ -8,7 +8,18 @@
     <string name="cloud">Cloud</string>
     <string name="remote">Remote</string>
     <string name="settings">Settings</string>
+    <string name="search">Search</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="file_manager">File Manager</string>
+    <string name="allow_access_to_external_storage">Allow access to external storage</string>
+    <string name="we_need_to_access_all_of_your_device_files">We need to access all of your device files</string>
+    <string name="images">Images</string>
+    <string name="videos">Videos</string>
+    <string name="musics">Musics</string>
+    <string name="documents">Documents</string>
+    <string name="applications_files">Applications files</string>
+    <string name="lock_files">Lock files</string>
+    <string name="categories">Categories</string>
+    <string name="storage_devices">Storage devices</string>
 </resources>

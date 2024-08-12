@@ -3,14 +3,27 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary">#2f64ff</color>
-    <color name="darkPrimary">#2550CD</color>
-    <color name="lightPrimary">#4B77F8</color>
+    <color name="primary">#0080FF</color>
+    <color name="darkPrimary">#0063C0</color>
+    <color name="lightPrimary">#5A8DE5</color>
 
     <color name="bgColor">#f4f2f7</color>
     <color name="foreground">#ffffff</color>
-    <color name="onForeground">#f9f9f9</color>
+    <color name="onForeground">#ECECEC</color>
 
     <color name="textPrimary">#2C2C2C</color>
     <color name="textSecondary">#666666</color>
+
+
+    <color name="categoryImageIconColor">#04dc19</color>
+    <color name="categoryImageBgColor">#2304DC19</color>
+
+    <color name="categoryVideoIconColor">#00b6de</color>
+    <color name="categoryVideoBgColor">#2500B6DE</color>
+
+    <color name="categoryMusicIconColor">#dd0250</color>
+    <color name="categoryMusicBgColor">#28DD0250</color>
+
+    <color name="categoryDocumentIconColor">#e1b82a</color>
+    <color name="categoryDocumentBgColor">#2AE1B82A</color>
 </resources>

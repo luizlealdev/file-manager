@@ -1,22 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="8dp"
-    android:layout_marginTop="12dp"
+    android:fillViewport="true"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="4dp"
     tools:context=".ui.fragments.HomeFragment">
 
-   <TextView
-       app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="@string/file_manager"
-       android:textSize="24sp"
-       android:fontFamily="@font/inter"
-       android:textStyle="bold"
-       android:textColor="@color/textPrimary"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/text_app_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
+            android:text="@string/file_manager"
+            android:textColor="@color/textPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/button_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/button_search"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:contentDescription="@string/search"
+            android:focusable="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_search"
+            android:tooltipText="@string/search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/textPrimary" />
+
+        <TextView
+            android:id="@+id/text_subtitle_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/categories"
+            android:textColor="@color/textSecondary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_app_title" />
+
+        <ImageButton
+            android:id="@+id/button_images_folder"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/style_round"
+            android:backgroundTint="@color/categoryImageBgColor"
+            android:contentDescription="@string/images"
+            android:src="@drawable/ic_image"
+            android:tooltipText="@string/images"
+            app:layout_constraintEnd_toStartOf="@id/button_videos_folder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_subtitle_categories"
+            app:tint="@color/categoryImageIconColor" />
+
+        <ImageButton
+            android:id="@+id/button_videos_folder"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:background="@drawable/style_round"
+            android:backgroundTint="@color/categoryVideoBgColor"
+            android:contentDescription="@string/videos"
+            android:src="@drawable/ic_video"
+            android:tooltipText="@string/videos"
+            app:layout_constraintEnd_toStartOf="@id/button_music_folder"
+            app:layout_constraintStart_toEndOf="@id/button_images_folder"
+            app:layout_constraintTop_toTopOf="@id/button_images_folder"
+            app:tint="@color/categoryVideoIconColor" />
+
+        <ImageButton
+            android:id="@+id/button_music_folder"
+            android:background="@drawable/style_round"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:backgroundTint="@color/categoryMusicBgColor"
+            android:contentDescription="@string/musics"
+            android:src="@drawable/ic_music"
+            android:tooltipText="@string/musics"
+            app:layout_constraintEnd_toStartOf="@id/button_document_folder"
+            app:layout_constraintStart_toEndOf="@id/button_videos_folder"
+            app:layout_constraintTop_toTopOf="@id/button_videos_folder"
+            app:tint="@color/categoryMusicIconColor" />
+
+        <ImageButton
+            android:id="@+id/button_document_folder"
+            android:background="@drawable/style_round"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:backgroundTint="@color/categoryDocumentBgColor"
+            android:contentDescription="@string/documents"
+            android:src="@drawable/ic_document"
+            android:tooltipText="@string/documents"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/button_music_folder"
+            app:layout_constraintTop_toTopOf="@id/button_music_folder"
+            app:tint="@color/categoryDocumentIconColor" />
+
+        <TextView
+            android:id="@+id/text_subtitle_storage_devices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="18dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/storage_devices"
+            android:textColor="@color/textSecondary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_images_folder" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
