@@ -14,7 +14,7 @@
         <!--item name="colorOnSecondary">@color/lightPrimary</item-->
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/bgColor</item>
     </style>
 
     <style name="Theme.FileManagerX" parent="Base.Theme.FileManagerX" />
