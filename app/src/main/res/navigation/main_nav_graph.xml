@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/frg_files"
-        android:name="dev.luizleal.filemanagerx.ui.fragments.CloudFragment"
-        android:label="fragment_cloud"
-        tools:layout="@layout/fragment_cloud" />
-    <fragment
-        android:id="@+id/frg_cloud"
         android:name="dev.luizleal.filemanagerx.ui.fragments.FilesFragment"
         android:label="fragment_files"
         tools:layout="@layout/fragment_files" />
+    <fragment
+        android:id="@+id/frg_cloud"
+        android:name="dev.luizleal.filemanagerx.ui.fragments.CloudFragment"
+        android:label="fragment_cloud"
+        tools:layout="@layout/fragment_cloud" />
     <fragment
         android:id="@+id/frg_remote"
         android:name="dev.luizleal.filemanagerx.ui.fragments.RemoteFragment"
