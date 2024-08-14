@@ -22,4 +22,6 @@
     <string name="lock_files">Lock files</string>
     <string name="categories">Categories</string>
     <string name="storage_devices">Storage devices</string>
+    <string name="items">items</string>
+    <string name="file_icon">File icon</string>
 </resources>
