@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:paddingHorizontal="4dp"
     android:paddingVertical="8dp"
+    android:background="@drawable/style_folder_holder_border"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -11,8 +12,7 @@
         android:layout_width="46dp"
         android:layout_height="46dp"
         android:contentDescription="@string/file_icon"
-        android:src="@drawable/ic_folder_ui"
-        android:padding="2dp"
+        android:src="@drawable/ic_folder_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,6 +20,7 @@
     <TextView
         android:id="@+id/text_file_name"
         android:layout_width="0dp"
+
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter"
         android:text="Folder name"

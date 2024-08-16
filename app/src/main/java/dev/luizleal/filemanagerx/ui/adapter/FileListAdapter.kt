@@ -10,6 +10,8 @@ import dev.luizleal.filemanagerx.R
 import dev.luizleal.filemanagerx.databinding.FileItemHolderBinding
 import dev.luizleal.filemanagerx.model.FileModel
 import dev.luizleal.filemanagerx.utils.ConversionUtils.Companion.formatBytes
+import dev.luizleal.filemanagerx.utils.FileIconsUtils.Companion.getFileIcon
+import dev.luizleal.filemanagerx.utils.FileIconsUtils.Companion.getFolderIcon
 
 class FileListAdapter(private val context: Context) :
     RecyclerView.Adapter<FileListAdapter.FileViewHolder>() {
@@ -62,7 +64,7 @@ class FileListAdapter(private val context: Context) :
                 icon.setImageDrawable(
                     ContextCompat.getDrawable(
                         context,
-                        R.drawable.ic_folder_ui
+                        getFolderIcon(file.name)
                     )
                 )
 
@@ -72,7 +74,7 @@ class FileListAdapter(private val context: Context) :
                 icon.setImageDrawable(
                     ContextCompat.getDrawable(
                         context,
-                        R.drawable.ic_file_png
+                        getFileIcon(file.name)
                     )
                 )
 
