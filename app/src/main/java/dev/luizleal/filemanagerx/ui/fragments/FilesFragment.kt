@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.luizleal.filemanagerx.R
 import dev.luizleal.filemanagerx.databinding.FragmentFilesBinding
 import dev.luizleal.filemanagerx.model.FileModel
 import dev.luizleal.filemanagerx.ui.adapter.FileListAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -24,8 +28,8 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
     private lateinit var fileListAdapter: FileListAdapter
 
     /**
-     * this variable contains the path that will be listed,
-     * for example, if the user enter in the 'Downloads' directory, put "Downloads" on the list
+     * this variable contains the path that will be listed, for example, if the
+     * user enter in the 'Downloads' directory, put "Downloads" on the list
      */
     private var currentPath = mutableListOf("storage", "emulated", "0")
 
@@ -64,36 +68,48 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
             )
         }
 
-        fileListAdapter.setFiles(getFileFromDirectory(currentPath)) //set file by the variable currentPath
+        //set file by the variable currentPath
+        getFileFromDirectory(currentPath) { files ->
+            if (files.isNotEmpty()) {
+                fileListAdapter.setFiles(files)
+                binding.progressbarLoading.visibility = View.GONE
+            }
+
+        }
+        //fileListAdapter.setFiles(getFileFromDirectory(currentPath)) /
     }
 
-    private fun getFileFromDirectory(pathList: List<String>): List<FileModel> {
+    private fun getFileFromDirectory(pathList: List<String>, callback: (List<FileModel>) -> Unit) {
         val path = pathList.joinToString("/") //add string between each item of the list
-        val fileList: MutableList<FileModel> = ArrayList() //create a variable to store the file list
+        val fileList: MutableList<FileModel> =
+            ArrayList() //create a variable to store the file list
 
-        File(path).listFiles()?.forEach { file -> //from the currentPath, get all files and folders and list it
-            //check if the current item is a directory, if it is, get the total items inside the directory
-            val itemsQuantity = if (file.isDirectory) file.listFiles()?.size ?: 0 else null
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                File(path).listFiles()
+                    ?.forEach { file -> //from the currentPath, get all files and folders and list it
+                        //check if the current item is a directory, if it is, get the total items inside the directory
+                        val itemsQuantity =
+                            if (file.isDirectory) file.listFiles()?.size ?: 0 else null
 
-            //check if the current item is a file, if it is, get the file size in bytes
-            val size = if (file.isFile) file.length() else null
+                        //check if the current item is a file, if it is, get the file size in bytes
+                        val size = if (file.isFile) file.length() else null
+                        val lastModifiedDate = file.lastModified()
 
-            val lastModifiedDate = file.lastModified()
-
-            fileList.add(
-                FileModel(
-                    isDirectory = file.isDirectory,
-                    name = file.name,
-                    itemsQuantity = itemsQuantity,
-                    size = size,
-                    creationDate = SimpleDateFormat("dd/MM/yyyy", Locale("US")).format(
-                        lastModifiedDate
-                    ) //format the date to 00/00/0000
-                )
-            )
+                        fileList.add(
+                            FileModel(
+                                isDirectory = file.isDirectory,
+                                name = file.name,
+                                itemsQuantity = itemsQuantity,
+                                size = size,
+                                creationDate = SimpleDateFormat("dd/MM/yyyy", Locale("US")).format(
+                                    lastModifiedDate
+                                ) //format the date to 00/00/0000
+                            )
+                        )
+                    }
+            }
+            callback(fileList)
         }
-
-        //return the file list sorted by alphabetical, following the order folders and than files
-        return fileList.sortedBy { it.name }.sortedByDescending { it.isDirectory }
     }
 }
