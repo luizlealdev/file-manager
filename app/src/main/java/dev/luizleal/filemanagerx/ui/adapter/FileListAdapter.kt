@@ -16,12 +16,13 @@ import dev.luizleal.filemanagerx.utils.FileIconsUtils.Companion.getFolderIcon
 class FileListAdapter(private val context: Context) :
     RecyclerView.Adapter<FileListAdapter.FileViewHolder>() {
 
-    //file list the will be in the future the items of recycler view
+    //file list that will be in the future the items of recycler view
     private var fileList: MutableList<FileModel> = ArrayList()
 
     //set function for fileList
     fun setFiles(files: List<FileModel>) {
         this.fileList = files.toMutableList()
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FileViewHolder {
@@ -58,7 +59,7 @@ class FileListAdapter(private val context: Context) :
 
         fun bind(file: FileModel) {
             Log.d(file.name, file.isDirectory.toString())
-            var infoText = ""
+            var infoText: String
 
             if (file.isDirectory) {
                 icon.setImageDrawable(
