@@ -1,7 +1,6 @@
 package dev.luizleal.filemanagerx.ui.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -13,7 +12,10 @@ import dev.luizleal.filemanagerx.utils.ConversionUtils.Companion.formatBytes
 import dev.luizleal.filemanagerx.utils.FileIconsUtils.Companion.getFileIcon
 import dev.luizleal.filemanagerx.utils.FileIconsUtils.Companion.getFolderIcon
 
-class FileListAdapter(private val context: Context) :
+class FileListAdapter(
+    private val context: Context,
+    private val whenOpenFolder: (fileName: String) -> Unit
+) :
     RecyclerView.Adapter<FileListAdapter.FileViewHolder>() {
 
     //file list that will be in the future the items of recycler view
@@ -43,12 +45,12 @@ class FileListAdapter(private val context: Context) :
         when (holder) {
             is FileViewHolder -> {
                 //call the function bind of the holder with the file list item in the current position
-                holder.bind(fileList[position])
+                holder.bind(fileList[position], whenOpenFolder)
             }
         }
     }
 
-    class FileViewHolder(private val context: Context, binding: FileItemHolderBinding) :
+    class FileViewHolder(private val context: Context, private val binding: FileItemHolderBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         //creating of variables from items in xml
@@ -57,34 +59,30 @@ class FileListAdapter(private val context: Context) :
         private val info = binding.textFileInfo
         private val creationDate = binding.textFileDate
 
-        fun bind(file: FileModel) {
-            Log.d(file.name, file.isDirectory.toString())
-            var infoText: String
-
-            if (file.isDirectory) {
-                icon.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        context,
-                        getFolderIcon(file.name)
-                    )
-                )
-
-                infoText =
-                    "${file.itemsQuantity} ${ContextCompat.getString(context, R.string.items)}"
-            } else {
-                icon.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        context,
-                        getFileIcon(file.name)
-                    )
-                )
-
-                infoText = file.size?.let { formatBytes(it) }.toString()
-            }
-
-            info.text = infoText
+        fun bind(file: FileModel, whenOpenFolder: (folderName: String) -> Unit) {
             name.text = file.name
+
+            info.text = if (file.isDirectory) "${file.itemsQuantity} ${
+                ContextCompat.getString(
+                    context,
+                    R.string.items
+                )
+            }" else file.size?.let { formatBytes(it) }.toString()
+
+            icon.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    if (file.isDirectory) getFolderIcon(file.name) else getFileIcon(file.name)
+                )
+            )
+
             creationDate.text = file.creationDate
+
+            binding.root.setOnClickListener {
+                if (file.isDirectory) {
+                    whenOpenFolder(name.text.toString())
+                }
+            }
         }
     }
 }

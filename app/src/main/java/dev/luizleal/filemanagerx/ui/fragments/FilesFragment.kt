@@ -1,7 +1,6 @@
 package dev.luizleal.filemanagerx.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +28,7 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
 
     /**
      * this variable contains the path that will be listed, for example, if the
-     * user enter in the 'Downloads' directory, put "Downloads" on the list
+     * user enters in the 'Downloads' directory, put "Downloads" into the list
      */
     private var currentPath = mutableListOf("storage", "emulated", "0")
 
@@ -58,7 +57,10 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
 
     private fun setupFileListRecyclerView() {
         //define the recyclerview adapter
-        fileListAdapter = FileListAdapter(requireContext())
+        fileListAdapter = FileListAdapter(requireContext()) { fileName ->
+            currentPath.add(fileName)
+            openFolder(currentPath)
+        }
         binding.recyclerviewFiles.apply {
             adapter = fileListAdapter //set adapter in the recyclerview
             layoutManager = LinearLayoutManager( //set the layoutManager type
@@ -67,6 +69,13 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
                 false
             )
         }
+
+        openFolder(currentPath)
+    }
+
+    private fun openFolder(path: List<String>) {
+        fileListAdapter.setFiles(listOf())
+        binding.progressbarLoading.visibility = View.VISIBLE
 
         //set file by the variable currentPath
         getFileFromDirectory(currentPath) { files ->
@@ -83,11 +92,12 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
         val path = pathList.joinToString("/") //add string between each item of the list
         val fileList: MutableList<FileModel> =
             ArrayList() //create a variable to store the file list
+        val dateFormater = SimpleDateFormat("dd/MM/yyyy", Locale("US"))
 
         lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) { //move the code to thread I/O for avoid the application freeze
                 File(path).listFiles()
-                    ?.forEach { file -> //from the currentPath, get all files and folders and list it
+                    ?.map { file -> //from the currentPath, get all files and folders and list it
                         //check if the current item is a directory, if it is, get the total items inside the directory
                         val itemsQuantity =
                             if (file.isDirectory) file.listFiles()?.size ?: 0 else null
@@ -96,20 +106,22 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
                         val size = if (file.isFile) file.length() else null
                         val lastModifiedDate = file.lastModified()
 
+                        //add the current file to the list
                         fileList.add(
                             FileModel(
                                 isDirectory = file.isDirectory,
                                 name = file.name,
                                 itemsQuantity = itemsQuantity,
                                 size = size,
-                                creationDate = SimpleDateFormat("dd/MM/yyyy", Locale("US")).format(
+                                creationDate = dateFormater.format(
                                     lastModifiedDate
                                 ) //format the date to 00/00/0000
                             )
                         )
-                    }
+                    } ?: listOf()
             }
-            callback(fileList)
+            //sort the list
+            callback(fileList.sortedWith(compareByDescending<FileModel> { it.isDirectory }.thenBy { it.name }))
         }
     }
 }
