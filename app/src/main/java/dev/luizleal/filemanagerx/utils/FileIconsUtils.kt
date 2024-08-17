@@ -1,6 +1,8 @@
 package dev.luizleal.filemanagerx.utils
 
 import dev.luizleal.filemanagerx.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class FileIconsUtils {
     companion object {
@@ -16,7 +18,7 @@ class FileIconsUtils {
         private val dbPattern = Regex("\\.(db|sql|sqlite|mdb)$")
         private val fontPattern = Regex("\\.(ttf|otf|woff)$")
 
-        fun getFileIcon(fileName: String): Int {
+        fun getFileIcon(fileName: String): Int{
             return when {
                 imagePattern.containsMatchIn(fileName) -> R.drawable.ic_file_image
                 videoPattern.containsMatchIn(fileName) -> R.drawable.ic_file_video

@@ -1,5 +1,6 @@
 package dev.luizleal.filemanagerx.utils
 
+import dev.luizleal.filemanagerx.R
 import java.util.Locale
 
 class ConversionUtils {
