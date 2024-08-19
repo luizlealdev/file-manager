@@ -16,8 +16,4 @@
         android:id="@+id/frg_remote"
         android:icon="@drawable/ic_globe"
         android:title="@string/remote" />
-    <item
-        android:id="@+id/frg_setting"
-        android:icon="@drawable/ic_setting"
-        android:title="@string/settings" />
 </menu>
