@@ -74,18 +74,16 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
     }
 
     private fun openFolder(path: List<String>) {
-        fileListAdapter.setFiles(listOf())
-        binding.progressbarLoading.visibility = View.VISIBLE
+        binding.progressIndicatorLoading.visibility = View.VISIBLE
 
         //set file by the variable currentPath
         getFileFromDirectory(currentPath) { files ->
             if (files.isNotEmpty()) {
                 fileListAdapter.setFiles(files)
-                binding.progressbarLoading.visibility = View.GONE
+                binding.progressIndicatorLoading.visibility = View.GONE
             }
 
         }
-        //fileListAdapter.setFiles(getFileFromDirectory(currentPath)) /
     }
 
     private fun getFileFromDirectory(pathList: List<String>, callback: (List<FileModel>) -> Unit) {

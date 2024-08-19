@@ -4,20 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="8dp"
+    android:paddingTop="4dp"
     tools:context=".ui.fragments.FilesFragment">
 
-    <ProgressBar
-        android:id="@+id/progressbar_loading"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
+    <ImageButton
+        android:id="@+id/button_go_back"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:contentDescription="@string/go_back"
+        android:focusable="true"
+        android:padding="10dp"
+        android:src="@drawable/ic_angle_left"
+        android:tooltipText="@string/go_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/textPrimary" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/internal_storage"
+        android:textSize="20sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="6dp"
+        android:textColor="@color/textPrimary"
+        android:textStyle="bold"
+        android:fontFamily="@font/inter"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toStartOf="@id/button_search"
+        app:layout_constraintTop_toTopOf="@id/button_go_back"
+        app:layout_constraintBottom_toBottomOf="@id/button_go_back"
+        app:layout_constraintStart_toEndOf="@id/button_go_back"/>
+
+    <ImageButton
+        android:id="@+id/button_search"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:contentDescription="@string/search"
+        android:focusable="true"
+        android:padding="10dp"
+        android:src="@drawable/ic_search"
+        android:tooltipText="@string/search"
+        app:layout_constraintEnd_toStartOf="@id/button_more_options"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/textPrimary" />
+
+    <ImageButton
+        android:id="@+id/button_more_options"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="6dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:contentDescription="@string/more"
+        android:focusable="true"
+        android:src="@drawable/ic_menu_dots"
+        android:tooltipText="@string/more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/textPrimary" />
+
+    <ImageView
+        android:id="@+id/image_root_folder_icon"
+        android:layout_width="28dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_folder_large"
+        app:tint="@color/textSecondary"
+        app:layout_constraintTop_toBottomOf="@id/button_go_back"
+        app:layout_constraintStart_toStartOf="@id/button_go_back"
+        app:layout_constraintBottom_toBottomOf="@id/text_path"
+        android:layout_marginStart="6dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/text_path"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/button_more_options"
+        app:layout_constraintStart_toEndOf="@id/image_root_folder_icon"
+        app:layout_constraintTop_toBottomOf="@id/button_go_back" />
+    
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_indicator_loading"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        android:indeterminateTint="@color/primary"
-        app:layout_constraintBottom_toBottomOf="@id/recyclerview_files"
-        app:layout_constraintEnd_toEndOf="@id/recyclerview_files"
-        app:layout_constraintStart_toStartOf="@id/recyclerview_files"
-        app:layout_constraintTop_toTopOf="@id/recyclerview_files" />
+        app:indicatorColor="@color/primary"
+        app:trackColor="@color/foreground"
+        app:layout_constraintTop_toBottomOf="@id/text_path"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_files"
@@ -25,9 +105,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/progress_indicator_loading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
