@@ -11,6 +11,7 @@ import dev.luizleal.filemanagerx.R
 import dev.luizleal.filemanagerx.databinding.FragmentFilesBinding
 import dev.luizleal.filemanagerx.model.FileModel
 import dev.luizleal.filemanagerx.ui.adapter.FileListAdapter
+import dev.luizleal.filemanagerx.ui.adapter.FolderPathListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,6 +26,7 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
 
     //file list adapter for set our recycler view
     private lateinit var fileListAdapter: FileListAdapter
+    private lateinit var foldersPathList: FolderPathListAdapter
 
     /**
      * this variable contains the path that will be listed, for example, if the
@@ -45,6 +47,7 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
         super.onViewCreated(view, savedInstanceState)
 
         //function to setup file list
+        setupFoldersPathListRecyclerView()
         setupFileListRecyclerView()
     }
 
@@ -57,10 +60,11 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
 
     private fun setupFileListRecyclerView() {
         //define the recyclerview adapter
-        fileListAdapter = FileListAdapter(requireContext()) { fileName ->
-            currentPath.add(fileName)
+        fileListAdapter = FileListAdapter(requireContext()) { folderName ->
+            currentPath.add(folderName)
             openFolder(currentPath)
         }
+
         binding.recyclerviewFiles.apply {
             adapter = fileListAdapter //set adapter in the recyclerview
             layoutManager = LinearLayoutManager( //set the layoutManager type
@@ -73,17 +77,37 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
         openFolder(currentPath)
     }
 
+    private fun setupFoldersPathListRecyclerView() {
+        foldersPathList = FolderPathListAdapter { folderPosition ->
+            currentPath.subList(folderPosition + 1, currentPath.size).clear()
+
+            openFolder(currentPath)
+        }
+
+        binding.foldersPathList.apply {
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = foldersPathList
+        }
+    }
+
     private fun openFolder(path: List<String>) {
         binding.progressIndicatorLoading.visibility = View.VISIBLE
 
         //set file by the variable currentPath
-        getFileFromDirectory(currentPath) { files ->
+        getFileFromDirectory(path) { files ->
             if (files.isNotEmpty()) {
                 fileListAdapter.setFiles(files)
                 binding.progressIndicatorLoading.visibility = View.GONE
-            }
 
+                binding.foldersPathList.smoothScrollToPosition(path.size - 1)
+            }
         }
+
+        foldersPathList.setFolderList(path)
     }
 
     private fun getFileFromDirectory(pathList: List<String>, callback: (List<FileModel>) -> Unit) {
