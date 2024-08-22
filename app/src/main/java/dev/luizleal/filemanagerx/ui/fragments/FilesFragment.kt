@@ -61,6 +61,7 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
     private fun setupFileListRecyclerView() {
         //define the recyclerview adapter
         fileListAdapter = FileListAdapter(requireContext()) { folderName ->
+            //when the user click on a folder, add the path of this folder and than open it
             currentPath.add(folderName)
             openFolder(currentPath)
         }
@@ -78,7 +79,10 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
     }
 
     private fun setupFoldersPathListRecyclerView() {
+        //to setup the folder list bar we get the currentPath and list it
+
         foldersPathList = FolderPathListAdapter { folderPosition ->
+            //this block of code runs when the user click in a folder in the folder list bar (i know that's confusing)
             currentPath.subList(folderPosition + 1, currentPath.size).clear()
 
             openFolder(currentPath)
@@ -95,15 +99,16 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
     }
 
     private fun openFolder(path: List<String>) {
-        binding.progressIndicatorLoading.visibility = View.VISIBLE
+        binding.progressIndicatorLoading.visibility = View.VISIBLE //show loading bar
 
         //set file by the variable currentPath
         getFileFromDirectory(path) { files ->
             if (files.isNotEmpty()) {
                 fileListAdapter.setFiles(files)
-                binding.progressIndicatorLoading.visibility = View.GONE
+                binding.progressIndicatorLoading.visibility = View.GONE //hide loading bar
 
                 binding.foldersPathList.smoothScrollToPosition(path.size - 1)
+                //scroll the folders path bar to the end
             }
         }
 
@@ -142,7 +147,7 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
                         )
                     } ?: listOf()
             }
-            //sort the list
+            //sort the list by name and type (folder or file)
             callback(fileList.sortedWith(compareByDescending<FileModel> { it.isDirectory }.thenBy { it.name }))
         }
     }
